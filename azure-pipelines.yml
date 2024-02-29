@@ -18,7 +18,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: 'cantelladev.azurecr.io/my_django_app'
-        dockerfile: './django_app/'
+        dockerfile: './django_app/Dockerfile'
         containerRegistry: 'cantella-dev-registry'
         tags: |
           1.0
