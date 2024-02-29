@@ -38,7 +38,7 @@ RUN python manage.py collectstatic --noinput
 RUN python manage.py migrate
 
 # Expose django port
-EXPOSE 8000
+EXPOSE 80
 
 # Run django-gunicorn server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
