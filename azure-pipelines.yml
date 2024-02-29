@@ -20,9 +20,7 @@ jobs:
   - script: |
       cd django_app
       pip install docker
-      echo $(Build.BuildId)
-      echo "$(imageName)"
-      docker build -t "$(imageName)" .
+      docker build -t my_django_app:1.0 .
     displayName: 'Build Docker Image'
     env:
       imageName: 'my_django_app:$(Build.BuildId)'
