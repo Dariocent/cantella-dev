@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+jobs:
+- job: BuildAndPushDockerImage
+  displayName: 'Build and Push Docker Image'
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: UsePythonVersion@0
+    displayName: 'Install Python'
+    inputs:
+      versionSpec: '3.12.2'
+      addToPath: true
+
+  - script: |
+      cd django_app
+      pip install docker
+      docker build -t $(imageName) .
+    displayName: 'Build Docker Image'
+    env:
+      imageName: 'my_django_app:$(Build.BuildId)'
+
+  - task: Docker@2
+    displayName: 'Push Docker Image to ACR'
+    inputs:
+      containerRegistry: 'yourACRConnection'  # Azure Container Registry service connection
+      repository: 'cantelladev.azurecr.io/my_django_app'
+      command: 'push'
+      tags: |
+        $(Build.BuildId)
+        latest
