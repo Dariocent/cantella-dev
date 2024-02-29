@@ -22,33 +22,3 @@ stages:
         containerRegistry: 'cantella-dev-registry'
         tags: |
           1.0
-
-jobs:
-- job: BuildAndPushDockerImage
-  displayName: 'Build and Push Docker Image'
-  pool:
-    vmImage: 'ubuntu-latest'
-
-  steps:
-  - task: UsePythonVersion@0
-    displayName: 'Install Python'
-    inputs:
-      versionSpec: '3.x'
-      addToPath: true
-
-  - script: |
-      cd django_app
-      pip install docker
-      docker build -t my_django_app:1.0 .
-    displayName: 'Build Docker Image'
-    env:
-      imageName: 'my_django_app:$(Build.BuildId)'
-
-  - task: Docker@2
-    displayName: 'Push Docker Image to ACR'
-    inputs:
-      containerRegistry: 'cantella-dev-registry'  # Azure Container Registry service connection
-      repository: 'cantelladev.azurecr.io/my_django_app'
-      command: 'push'
-      tags: |
-        1.0
