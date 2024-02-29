@@ -32,5 +32,5 @@ jobs:
       repository: 'cantelladev.azurecr.io/my_django_app'
       command: 'push'
       tags: |
-        $(Build.BuildId)
+        1.0
         latest
