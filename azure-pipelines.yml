@@ -33,4 +33,3 @@ jobs:
       command: 'push'
       tags: |
         1.0
-        latest
