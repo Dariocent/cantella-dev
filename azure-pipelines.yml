@@ -4,7 +4,7 @@ trigger:
       - main
       - master
 
-
+stages:
 - stage: Build
   displayName: Build and push stage
   jobs:  
