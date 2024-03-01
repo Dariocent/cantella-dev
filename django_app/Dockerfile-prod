@@ -1,0 +1,45 @@
+# Fetching official base image for python
+FROM python:3.12.2-alpine3.19
+
+# Setting up the work directory
+WORKDIR /home/app/
+
+# Preventing python from writing
+# pyc to docker container
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# Flushing out python buffer
+ENV PYTHONUNBUFFERED 1
+
+# Updating the os
+RUN apk update 
+
+# Installing python3
+RUN apk add python3-dev
+RUN apk add gcc libc-dev libffi-dev
+
+# Copying requirement file
+COPY ./requirements.txt ./
+
+# Upgrading pip version
+RUN pip install --upgrade pip
+
+# Installing dependencies
+RUN pip install gunicorn
+
+# Installing dependencies
+RUN pip install --no-cache-dir -r ./requirements.txt
+
+# Copying all the files in our project
+COPY . .
+
+# Collect static files
+RUN python manage.py makemigrations
+RUN python manage.py collectstatic --noinput
+RUN python manage.py migrate
+
+# Expose django port
+EXPOSE 8000
+
+# Run django-gunicorn server
+CMD ["gunicorn", "personal-portfolio.wsgi:application", "--bind 0.0.0.0:8000"]
