@@ -1,0 +1,53 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build job
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      displayName: Build and push an django to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'cantelladev.azurecr.io/django-app-dev'
+        dockerfile: './django_app/Dockerfile-dev'
+        containerRegistry: 'cantella-dev-registry'
+        tags: |
+          1.0
+
+    - task: Docker@2
+      displayName: Build and push an django to container registry
+      inputs:
+        command: buildAndPush
+        repository: 'django-app-prod'
+        dockerfile: './django_app/Dockerfile-prod'
+        containerRegistry: 'cantella-dev-registry'
+        tags: |
+          1.0
+
+- stage: Deploy
+  displayName: Deploy to AKS
+  jobs:  
+  - job: Deploy
+    displayName: Deploy job
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Kubernetes@1
+  displayName: 'Deploy to AKS'
+  inputs:
+    connectionType: 'Azure Resource Manager'
+    azureSubscriptionEndpoint: 'cantella-dev-cluster-connection'
+    kubernetesCluster: 'cantella-dev-cluster'
+    command: 'apply'
+    useConfigurationFile: true
+    configurationType: 'filePath'
+    configuration: '**/k8s/*.yaml'  # Path to your Kubernetes manifests
