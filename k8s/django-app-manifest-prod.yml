@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-app
+  labels:
+    app: django-k8s-web-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: django-app
+  template:
+    metadata:
+      labels:
+        app: django-app
+    spec:
+      containers:
+      - name: django-app
+        image: cantelladev.azurecr.io/django-app-prod:1.0
+        ports:
+        - containerPort: 8000
+        imagePullPolicy: Always
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: "Exists"
+        effect: "NoSchedule"
+  strategy:
+    rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+    type: RollingUpdate
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-app-svc
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  selector:
+    app: django-app
