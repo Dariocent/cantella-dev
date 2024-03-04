@@ -42,12 +42,12 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: Kubernetes@1
-  displayName: 'Deploy to AKS'
-  inputs:
-    connectionType: 'Azure Resource Manager'
-    azureSubscriptionEndpoint: 'cantella-dev-cluster-connection'
-    kubernetesCluster: 'cantella-dev-cluster'
-    command: 'apply'
-    useConfigurationFile: true
-    configurationType: 'filePath'
-    configuration: '**/k8s/*.yaml'  # Path to your Kubernetes manifests
+      displayName: 'Deploy to AKS'
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        azureSubscriptionEndpoint: 'cantella-dev-cluster-connection'
+        kubernetesCluster: 'cantella-dev-cluster'
+        command: 'apply'
+        useConfigurationFile: true
+        configurationType: 'filePath'
+        configuration: '**/k8s/*.yaml'  # Path to your Kubernetes manifests
