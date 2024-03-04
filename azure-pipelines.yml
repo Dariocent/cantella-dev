@@ -27,7 +27,7 @@ stages:
       displayName: Build and push an django to container registry
       inputs:
         command: buildAndPush
-        repository: 'cantelladev.azurecr.io/django-app-prod'
+        repository: 'django-app-prod'
         dockerfile: './django_app/Dockerfile-prod'
         containerRegistry: 'cantella-dev-registry'
         tags: |
