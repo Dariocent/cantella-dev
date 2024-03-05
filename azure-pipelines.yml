@@ -21,8 +21,8 @@ stages:
         dockerfile: './django_app/Dockerfile-dev'
         containerRegistry: 'cantella-dev-registry'
         tags: |
-          $(Build.SourceVersion)  # Dynamic tag (e.g., commit hash or timestamp)
-          latest                  # Static 'latest' tag
+          $(Build.SourceVersion)
+          latest
 
     - task: Docker@2
       displayName: Build and push the django-prod image to container registry
@@ -32,5 +32,5 @@ stages:
         dockerfile: './django_app/Dockerfile-prod'
         containerRegistry: 'cantella-dev-registry'
         tags: |
-          $(Build.SourceVersion)  # Dynamic tag (e.g., commit hash or timestamp)
-          latest                  # Static 'latest' tag
+          $(Build.SourceVersion)
+          latest
