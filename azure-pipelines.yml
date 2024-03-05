@@ -14,7 +14,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: Docker@2
-      displayName: Build and push an django to container registry
+      displayName: Build and push the django-dev image to container registry
       inputs:
         command: buildAndPush
         repository: 'django-app-dev'
@@ -25,7 +25,7 @@ stages:
           latest                  # Static 'latest' tag
 
     - task: Docker@2
-      displayName: Build and push an django to container registry
+      displayName: Build and push the django-prod image to container registry
       inputs:
         command: buildAndPush
         repository: 'django-app-prod'
