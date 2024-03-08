@@ -19,6 +19,7 @@ stages:
         repository: 'https://github.com/Dariocent/personal-portfolio.git'  # Replace with your GitHub repository URL
         clean: true  # Optional: Clean the local repository before cloning
         fetchDepth: 1  # Optional: Shallow clone with history depth 1
+        ref: 'refs/heads/appservice'
 
     - task: Docker@2
       displayName: Build and push the django-dev image to container registry

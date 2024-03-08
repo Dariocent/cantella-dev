@@ -19,7 +19,7 @@ RUN apk add python3-dev
 RUN apk add gcc libc-dev libffi-dev
 
 # Copying requirement file
-COPY ./requirements.txt ./
+COPY ./personal-portfolio/requirements.txt ./
 
 # Upgrading pip version
 RUN pip install --upgrade pip
@@ -31,7 +31,7 @@ RUN pip install gunicorn
 RUN pip install --no-cache-dir -r ./requirements.txt
 
 # Copying all the files in our project
-COPY . .
+COPY ./personal-portfolio .
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
