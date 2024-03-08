@@ -13,13 +13,13 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Git@2
+    - bash: |
+        # Clone the repository without creating a folder
+        git clone --single-branch --branch appservice https://github.com/Dariocent/personal-portfolio.git .
       displayName: 'Clone repository'
-      inputs:
-        repository: 'https://github.com/Dariocent/personal-portfolio.git'  # Replace with your GitHub repository URL
-        clean: true  # Optional: Clean the local repository before cloning
-        fetchDepth: 1  # Optional: Shallow clone with history depth 1
-        ref: 'refs/heads/appservice'
+      #workingDirectory: $(Build.SourcesDirectory)  # Set the working directory to the root of the repository
+      env:
+        GIT_TERMINAL_PROMPT: 0  # Disable git prompts
 
     - task: Docker@2
       displayName: Build and push the django-dev image to container registry
