@@ -15,7 +15,7 @@ stages:
     steps:
     - bash: |
         # Clone the repository without creating a folder
-        git clone --single-branch --branch appservice https://github.com/Dariocent/personal-portfolio.git .
+        git clone --single-branch --branch appservice https://github.com/Dariocent/personal-portfolio.git
       displayName: 'Clone repository'
       #workingDirectory: $(Build.SourcesDirectory)  # Set the working directory to the root of the repository
       env:
