@@ -51,7 +51,7 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
-      - bash: 'sed -i -e ''s/#{BUILD_NUMBER}#/$(Build.BuildNumber)/g'' django-app-manifest-prod.yaml'
+      - bash: 'sed -i -e ''s/#{BUILD_NUMBER}#/$(Build.BuildNumber)/g'' ./k8s/django-app-manifest-prod.yaml'
         displayName: 'Replace Build Number inside Manifest'
 
       - task: KubernetesManifest@0
