@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: django-app
-        image: cantelladevregistry.azurecr.io/django-app-prod:latest
+        image: cantelladevregistry.azurecr.io/django-app-prod:$(Build.BuildNumber)
         ports:
         - containerPort: 8000
         imagePullPolicy: Always
