@@ -29,7 +29,7 @@ stages:
         dockerfile: './Dockerfile-dev'
         containerRegistry: 'cantella-dev-registry'
         tags: |
-          $(Build.SourceVersion)
+          $(Build.BuildNumber)
           latest
 
     - task: Docker@2
@@ -40,5 +40,5 @@ stages:
         dockerfile: './Dockerfile-prod'
         containerRegistry: 'cantella-dev-registry'
         tags: |
-          $(Build.SourceVersion)
+          $(Build.BuildNumber)
           latest
