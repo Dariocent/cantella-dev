@@ -15,7 +15,7 @@ stages:
         vmImage: 'ubuntu-latest'
       steps:
       - bash: |
-          git clone --single-branch --branch appservice https://github.com/Dariocent/personal-portfolio.git
+          git clone --single-branch --branch appservice https://github.com/Dariocent/personal-portfolio.git ./build-files
         displayName: 'Clone repository'
         env:
           GIT_TERMINAL_PROMPT: 0  # Disable git prompts
